@@ -1,1 +1,2 @@
-# JUSToken main contract
+# JUSToken 
+Main contract
