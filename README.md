@@ -1,1 +1,1 @@
-# just
+# JUSToken main contract
