@@ -44,7 +44,7 @@ contract JUSToken is SmartToken {
 
   }
 
-  function runKYC(uint until) {
+  function runKYC(uint until) public {
     assert(!status['KYCrun']);
 
     status['registerInvestors'] = true;
@@ -55,16 +55,13 @@ contract JUSToken is SmartToken {
         lockedUntil  // the first block number on which the transaction can be executed.
     ];
 
-    bytes callData = 0x12345; // TODO: ABI signature of stopKYC
+    bytes callData = 0x12345; // TODO: ABI signature of assignCaps
 
-    scheduler.scheduleTransaction.value(2 ether)(address(this),callData,255,uintArgs);
+    scheduler.scheduleTransaction.value(... ether)(address(this),callData,255,uintArgs);
   }
 
-  function stopKYC() {
+  function assignCaps(args ... , uint until) public {
     status['registerInvestors'] = false;
-  }
-
-  function runPhaseOne(args ... , uint until) public ownerOnly {
     assert(!status['ph1Run']);
 
     if(settings.values['initialPhaseMethod'] == 0){
@@ -81,7 +78,7 @@ contract JUSToken is SmartToken {
     scheduler.scheduleTransaction.value(... ether)(address(this),callData,255,uintArgs);
   }
 
-  function runPhaseTwo() {
+  function persistentBallot() public {
       //ballot + release
 
       if(finalizeEarly || noMoreFunds || scam){  //either out of money or trust
@@ -95,7 +92,7 @@ contract JUSToken is SmartToken {
 
   }
 
-  function registerInvestor(string _github, string _twitter) public payable{
+  function addTokenHolder(string _github, string _twitter) public payable{
     assert(status['registerInvestors']);
     if(storage.investors[msg.sender] == 0)
       storage.addInvestor(msg.sender,_github,_twitter);
@@ -103,17 +100,6 @@ contract JUSToken is SmartToken {
       participants.push(msg.sender);
   }
 
-  function convert2DAI() public payable{    //quickconvert to DAI
-    converter.extensions.quickConverter.quickconvert(args ...);
-  }
-
-  function convert2DAI() public payable{    //quickconvert to DAI
-    converter.extensions.quickConverter.quickconvert(args ...);
-  }
-
-  function convert2TKN(ERC20 token) public payable{    //quickconvert to ICO connector
-
-  }
 
 
 
