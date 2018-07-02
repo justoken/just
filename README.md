@@ -1,2 +1,4 @@
 # JUSToken 
-Main contract
+Main contract and libraries
+
+UNDER CONSTRUCTION!
